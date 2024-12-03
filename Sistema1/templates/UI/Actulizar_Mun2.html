@@ -1,0 +1,46 @@
+{% extends "Ui/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<head>
+   <link rel="stylesheet" href="{% static 'css/act_cnv.css' %}">
+</head>
+<div class="container mt-5">
+    
+
+    <!-- Formulario dentro del contenedor -->
+    
+        <form method="POST">
+           {% csrf_token %}
+           
+         <h3 class="text-center mb-4">
+            <i class="fas fa-city"></i> Actualizar Municipio
+        </h3>
+           <!-- Campo Nombre -->
+           <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" value="{{ municipio.nombre }}" required>
+           </div>
+
+           <!-- Campo RUT -->
+           <div class="mb-3">
+              <label for="rut" class="form-label">RUT:</label>
+              <input type="text" class="form-control" id="rut" name="rut" value="{{ municipio.rut }}" required>
+           </div>
+
+           <!-- Campo Cuenta -->
+           <div class="mb-3">
+              <label for="cuenta" class="form-label">Cuenta:</label>
+              <input type="text" class="form-control" id="cuenta" name="cuenta" value="{{ municipio.cuenta }}" required>
+           </div>
+
+           <!-- Botón de Guardar con icono -->
+           <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Guardar 
+           </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

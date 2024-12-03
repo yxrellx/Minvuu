@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Sistema MINVU{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  
+  <!-- CSS Personalizado -->
+  <style>
+      body {
+  font-family: 'Georgia', Times, serif;
+}
+    .sidebar {
+      border-top: 1px solid #ccc;  /* Línea separadora entre la barra superior y lateral */
+    }
+  </style>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <!-- Barra Superior -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0056b3;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="https://www.laopinon.cl/sites/laopinon.cl/files/imagen_noticia/minvu2.png" alt="Logo" width="80" height="auto" class="d-inline-block align-text-top me-2">
+        Sistema Minvu
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#">Hola, {{ request.user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#"><i class="bi bi-bell"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'perfil'%}">Perfil</a>
+          </li>
+
+          
+          
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'exitt' %}">Cerrar Sesión</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'login' %}">Iniciar Sesión</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+ <!-- Barra Lateral -->
+<div class="sidebar text-light position-fixed h-100 pt-4" style="top: 56px; width: 250px; background-color: #0056b3;">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link text-light" href="{% url 'Home' %}">
+        <i class="bi bi-grid me-2"></i> Inicio
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-light collapsed" href="#programasSubmenu" data-bs-toggle="collapse" role="button" aria-expanded="false">
+        <i class="bi bi-person-plus me-2"></i> Programas Minvu
+      </a>
+      <ul class="collapse" id="programasSubmenu">
+        
+            <a class="nav-link text-light" href="{% url 'Mun_List' %}">
+                <i class="fas fa-home"></i> Pequeñas Localidades
+            </a>
+        
+        
+            <a class="nav-link text-light" href="{% url 'Mun_List2' %}">
+                <i class="fas fa-building"></i> Barrios
+            </a>
+        
+        
+            <a class="nav-link text-light" href="{% url 'Mun_List3' %}">
+                <i class="fas fa-users"></i> Asentamientos Precarios
+            </a>
+        
+    </ul>
+    
+    <!-- Agrega una sección de Reporte y Estadísticas -->
+    <ul class="collapse" id="programasSubmenu"></ul>
+           <a class="nav-link text-light" href="#">
+            <i class="fas fa-tachometer-alt"></i> Dashboard 
+          </a>
+            <a class="nav-link text-light" href="#">
+                <i class="fas fa-chart-bar"></i> Reporte
+            </a>
+        
+        
+            <a class="nav-link text-light" href="#">
+                <i class="fas fa-chart-line"></i> Estadísticas
+            </a>
+        
+    </ul>
+    
+</div>
+  
+  <!-- Contenido Principal -->
+  <div class="content" style="margin-left: 250px; padding: 20px; padding-top: 80px;">
+    {% block content %}
+    <!-- Aquí se carga el contenido dinámico -->
+    {% endblock %}
+  </div>
+</body>
+
+</html>
