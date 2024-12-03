@@ -158,17 +158,16 @@ def Listar_Municipios2(request):
    datos = {'municipios_c': municipalidad}
    return render(request,'Ui/Lista_Mun2.html',datos)
 
-#barrios
 @login_required
 def Agregar_Mun2(request):
 
    if request.method == "POST":
       if request.POST.get('nombre') and request.POST.get('rut') and request.POST.get('cuenta'):
-         muni = Municipios()
-         muni.nombre = request.POST.get('nombre')
-         muni.rut = request.POST.get('rut')
-         muni.cuenta = request.POST.get('cuenta')
-         muni.save()
+         munici2 = Municipios()
+         munici2.nombre = request.POST.get('nombre')
+         munici2.rut = request.POST.get('rut')
+         munici2.cuenta = request.POST.get('cuenta')
+         munici2.save()
          return redirect('Mun_List2')
    return render(request, 'Ui/Agregar_Mun2.html',)
 
@@ -197,11 +196,11 @@ def Agregar_Mun3(request):
 
    if request.method == "POST":
       if request.POST.get('nombre') and request.POST.get('rut') and request.POST.get('cuenta'):
-         muni = Municipios()
-         muni.nombre = request.POST.get('nombre')
-         muni.rut = request.POST.get('rut')
-         muni.cuenta = request.POST.get('cuenta')
-         muni.save()
+         municipio3 = Municipios()
+         municipio3.nombre = request.POST.get('nombre')
+         municipio3.rut = request.POST.get('rut')
+         municipio3.cuenta = request.POST.get('cuenta')
+         municipio3.save()
          return redirect('Mun_List3')
    return render(request, 'Ui/Agregar_Mun3.html',)
 
@@ -218,7 +217,7 @@ def Agregar_Mun3(request):
 #    datos = {"municipio":municipio, "convenios":convenioss}
 #    return render(request,'Ui/detalle_Municipio.html',datos)    
 
-
+#municipio-----------------------------------
 
 def detalles_Municipio(request, id):
     municipio = get_object_or_404(Municipios, id=id)
@@ -279,14 +278,14 @@ def detalles_Municipio2(request, id):
 
 
 def Actualizar_Municipio2(request,id):
-    municipio = get_object_or_404(Municipios, id=id)
+    municipio2 = get_object_or_404(Municipios, id=id)
     if request.method == "POST":
-       municipio.nombre = request.POST.get('nombre')
-       municipio.rut = request.POST.get('rut')
-       municipio.cuenta = request.POST.get('cuenta')
-       municipio.save()
+       municipio2.nombre = request.POST.get('nombre')
+       municipio2.rut = request.POST.get('rut')
+       municipio2.cuenta = request.POST.get('cuenta')
+       municipio2.save()
        return redirect('Mun_List2')  
-    data = {'municipio': municipio}
+    data = {'municipio': municipio2}
     return render(request, 'UI\Actulizar_Mun2.html',data)    
     
 def Eliminar_Municipio2(request, id):
@@ -316,12 +315,12 @@ def detalles_Municipio3(request, id):
 
 
 def Actualizar_Municipio3(request,id):
-    municipio = get_object_or_404(Municipios, id=id)
+    municipio3 = get_object_or_404(Municipios, id=id)
     if request.method == "POST":
-       municipio.nombre = request.POST.get('nombre')
-       municipio.rut = request.POST.get('rut')
-       municipio.cuenta = request.POST.get('cuenta')
-       municipio.save()
+       municipio3.nombre = request.POST.get('nombre')
+       municipio3.rut = request.POST.get('rut')
+       municipio3.cuenta = request.POST.get('cuenta')
+       municipio3.save()
        return redirect('Mun_List3')  
     data = {'municipio': municipio}
     return render(request, 'UI\Actulizar_Mun3.html',data)    
@@ -413,9 +412,9 @@ def Ver_Historial_Convenio(request, id):
 
 #barrios
 def ver_convenio2(request, nombre_archivo):
-    ruta_convenios = os.path.join("ruta/completa/a/convenios", nombre_archivo)
-    if os.path.exists(ruta_convenios):
-        return FileResponse(open(ruta_convenios, 'rb'), content_type='application/pdf')
+    ruta_convenios2 = os.path.join("ruta/completa/a/convenios", nombre_archivo)
+    if os.path.exists(ruta_convenios2):
+        return FileResponse(open(ruta_convenios2, 'rb'), content_type='application/pdf')
     else:
         raise Http404("Archivo no encontrado")
     
@@ -423,50 +422,50 @@ def Agregar_Convenios2(request):
    mun_data = Municipios.objects.all()
    if request.method == "POST":
       if request.POST.get('nombre') and request.POST.get('descripcion') and request.POST.get('total') and request.FILES.get('documento') and request.POST.get('municipio'):
-         conven = Convenios()
-         conven.nombre = request.POST.get('nombre')
-         conven.descripcion = request.POST.get('descripcion')
-         conven.total = request.POST.get('total')
-         conven.documento = request.FILES.get('documento')
+         conven2 = Convenios()
+         conven2.nombre = request.POST.get('nombre')
+         conven2.descripcion = request.POST.get('descripcion')
+         conven2.total = request.POST.get('total')
+         conven2.documento = request.FILES.get('documento')
          municipio_id = request.POST.get('municipio')
-         conven.municipio = Municipios.objects.get(id=int(municipio_id))
-         conven.save()
-         print("Archivo guardado en:", conven.documento.path)  
+         conven2.municipio = Municipios.objects.get(id=int(municipio_id))
+         conven2.save()
+         print("Archivo guardado en:", conven2.documento.path)  
          return redirect('Mun_List2')
    return render(request, 'Ui/convenios2.html', {'municipio': mun_data})
    
 def Actualizar_Convenio2(request, id):
-    convenio = get_object_or_404(Convenios, id=id)
+    convenio2 = get_object_or_404(Convenios, id=id)
 
     if request.method == "POST":
         # Crear un registro en el historial antes de actualizar el convenio
         HistorialConvenios.objects.create(
-            convenio_madre=convenio,
-            nombre=convenio.nombre,
-            descripcion=convenio.descripcion,
-            total=convenio.total,
-            documento=convenio.documento if convenio.documento else None
+            convenio_madre2=convenio,
+            nombre2=convenio.nombre,
+            descripcion2=convenio.descripcion,
+            total2=convenio.total,
+            documento2=convenio.documento if convenio.documento else None
         )
 
         # Actualizar los campos del convenio actual
-        convenio.nombre = request.POST.get('nombre')
-        convenio.descripcion = request.POST.get('descripcion')
-        convenio.total = request.POST.get('total')
+        convenio2.nombre = request.POST.get('nombre')
+        convenio2.descripcion = request.POST.get('descripcion')
+        convenio2.total = request.POST.get('total')
 
         if request.FILES.get('documento'):
-            convenio.documento = request.FILES.get('documento')
+            convenio2.documento = request.FILES.get('documento')
 
-        convenio.save()
+        convenio2.save()
         return redirect('Mun_List2')
 
     # Incluye el historial relacionado
-    historial = convenio.historial.all()
-    data = {'convenio': convenio, 'historial': historial}
+    historial = convenio2.historial.all()
+    data = {'convenio': convenio2, 'historial': historial}
     return render(request, 'UI/Actulizar_Conv2.html', data)
 
 def Eliminar_Convenios2(request, id):
-    convenio = get_object_or_404(Convenios, id=id)
-    convenio.delete()
+    convenio2 = get_object_or_404(Convenios, id=id)
+    convenio2.delete()
     #return redirect('HTTP_REFERER', 'default_view')  
     return redirect(request.META.get('HTTP_REFERER', 'default_view'))
 
@@ -474,14 +473,14 @@ def Eliminar_Convenios2(request, id):
 
 def Ver_Historial_Convenio2(request, id):
     # Obtener el convenio específico
-    convenio = get_object_or_404(Convenios, id=id)
+    convenio2 = get_object_or_404(Convenios, id=id)
     
     # Obtener todos los registros del historial relacionados con este convenio
-    historial = convenio.historial.all()
+    historial = convenio2.historial.all()
     
     # Crear un diccionario con el convenio y su historial
     data = {
-        'convenio': convenio,
+        'convenio': convenio2,
         'historial': historial
     }
     
@@ -490,55 +489,55 @@ def Ver_Historial_Convenio2(request, id):
 
 #campamentos
 def ver_convenio3(request, nombre_archivo):
-    ruta_convenios = os.path.join("ruta/completa/a/convenios", nombre_archivo)
-    if os.path.exists(ruta_convenios):
-        return FileResponse(open(ruta_convenios, 'rb'), content_type='application/pdf')
+    ruta_convenios3 = os.path.join("ruta/completa/a/convenios", nombre_archivo)
+    if os.path.exists(ruta_convenios3):
+        return FileResponse(open(ruta_convenios3, 'rb'), content_type='application/pdf')
     else:
         raise Http404("Archivo no encontrado")
     
 def Agregar_Convenios3(request):
-   mun_data = Municipios.objects.all()
+   mun_data3 = Municipios.objects.all()
    if request.method == "POST":
       if request.POST.get('nombre') and request.POST.get('descripcion') and request.POST.get('total') and request.FILES.get('documento') and request.POST.get('municipio'):
-         conven = Convenios()
-         conven.nombre = request.POST.get('nombre')
-         conven.descripcion = request.POST.get('descripcion')
-         conven.total = request.POST.get('total')
-         conven.documento = request.FILES.get('documento')
+         conven3 = Convenios()
+         conven3.nombre = request.POST.get('nombre')
+         conven3.descripcion = request.POST.get('descripcion')
+         conven3.total = request.POST.get('total')
+         conven3.documento = request.FILES.get('documento')
          municipio_id = request.POST.get('municipio')
-         conven.municipio = Municipios.objects.get(id=int(municipio_id))
-         conven.save()
-         print("Archivo guardado en:", conven.documento.path)  
+         conven3.municipio = Municipios.objects.get(id=int(municipio_id))
+         conven3.save()
+         print("Archivo guardado en:", conven3.documento.path)  
          return redirect('Mun_List3')
-   return render(request, 'Ui/convenios3.html', {'municipio': mun_data})
+   return render(request, 'Ui/convenios3.html', {'municipio': mun_data3})
    
 def Actualizar_Convenio3(request, id):
-    convenio = get_object_or_404(Convenios, id=id)
+    convenio3 = get_object_or_404(Convenios, id=id)
 
     if request.method == "POST":
         # Crear un registro en el historial antes de actualizar el convenio
         HistorialConvenios.objects.create(
-            convenio_madre=convenio,
-            nombre=convenio.nombre,
-            descripcion=convenio.descripcion,
-            total=convenio.total,
-            documento=convenio.documento if convenio.documento else None
+            convenio_madre=convenio3,
+            nombre=convenio3.nombre,
+            descripcion=convenio3.descripcion,
+            total=convenio3.total,
+            documento=convenio3.documento if convenio3.documento else None
         )
 
         # Actualizar los campos del convenio actual
-        convenio.nombre = request.POST.get('nombre')
-        convenio.descripcion = request.POST.get('descripcion')
-        convenio.total = request.POST.get('total')
+        convenio3.nombre = request.POST.get('nombre')
+        convenio3.descripcion = request.POST.get('descripcion')
+        convenio3.total = request.POST.get('total')
 
         if request.FILES.get('documento'):
-            convenio.documento = request.FILES.get('documento')
+            convenio3.documento = request.FILES.get('documento')
 
-        convenio.save()
+        convenio3.save()
         return redirect('Mun_List3')
 
     # Incluye el historial relacionado
-    historial = convenio.historial.all()
-    data = {'convenio': convenio, 'historial': historial}
+    historial = convenio3.historial.all()
+    data = {'convenio': convenio3, 'historial': historial}
     return render(request, 'UI/Actulizar_Conv3.html', data)
 
 def Eliminar_Convenios3(request, id):
@@ -551,14 +550,14 @@ def Eliminar_Convenios3(request, id):
 
 def Ver_Historial_Convenio3(request, id):
     # Obtener el convenio específico
-    convenio = get_object_or_404(Convenios, id=id)
+    convenio3 = get_object_or_404(Convenios, id=id)
     
     # Obtener todos los registros del historial relacionados con este convenio
-    historial = convenio.historial.all()
+    historial = convenio3.historial.all()
     
     # Crear un diccionario con el convenio y su historial
     data = {
-        'convenio': convenio,
+        'convenio': convenio3,
         'historial': historial
     }
     
