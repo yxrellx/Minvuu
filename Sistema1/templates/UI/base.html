@@ -16,49 +16,11 @@
   <!-- CSS Personalizado -->
   <style>
       body {
-  font-family: 'Georgia', Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
     .sidebar {
       border-top: 1px solid #ccc;  /* Línea separadora entre la barra superior y lateral */
     }
-
-      /* Animación de la flecha */
-  .nav-link.collapsed .bi-chevron-down {
-    transform: rotate(0deg);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .nav-link:not(.collapsed) .bi-chevron-down {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  
-  * Estilo general para el submenú */
-#Submenu {
-    padding-left: 0;
-    list-style: none; /* Elimina los puntos de la lista */
-    margin: 0;
-  }
-  
-  #Submenu li a {
-    display: block;
-    padding: 10px 20px; /* Espaciado interno para los enlaces */
-    text-decoration: none; /* Elimina el subrayado del texto */
-    color: #ffffff; /* Color del texto */
-    background-color: transparent; /* Fondo transparente */
-    border-radius: 4px; /* Bordes redondeados */
-    transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
-  }
-  
-  /* Efecto de sombreado al pasar el mouse */
-  #Submenu li a:hover {
-    background-color: rgba(0, 0, 0, 0.5); /* Sombra oscura de fondo */
-    color: #ffffff; /* Color del texto al pasar el mouse */
-  }
-  
-
-
   </style>
   
   <!-- Bootstrap JS -->
@@ -67,7 +29,7 @@
 
 <body>
   <!-- Barra Superior -->
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0056b3;">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:  rgb(221 53 69);">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="https://www.laopinon.cl/sites/laopinon.cl/files/imagen_noticia/minvu2.png" alt="Logo" width="80" height="auto" class="d-inline-block align-text-top me-2">
@@ -104,75 +66,52 @@
     </div>
   </nav>
 
-<!-- Barra Lateral -->
-<div class="sidebar text-light position-fixed h-100 pt-4" style="top: 56px; width: 250px; background-color: #0056b3;">
+ <!-- Barra Lateral -->
+<div class="sidebar text-light position-fixed h-100 pt-4" style="top: 56px; width: 250px; background-color: rgb(0, 48, 96) ;">
   <ul class="nav flex-column">
-    <!-- Inicio -->
     <li class="nav-item">
       <a class="nav-link text-light" href="{% url 'Home' %}">
         <i class="bi bi-grid me-2"></i> Inicio
       </a>
     </li>
-    
-    <!-- Programas Minvu -->
     <li class="nav-item">
-      <a class="nav-link text-light collapsed d-flex justify-content-between align-items-center" href="#programasSubmenu" data-bs-toggle="collapse" role="button" aria-expanded="false">
-        <span><i class="bi bi-person-plus me-2"></i> Programas Minvu</span>
-        <i class="bi bi-chevron-down"></i> <!-- Flecha para indicar que es desplegable -->
+      <a class="nav-link text-light collapsed" href="#programasSubmenu" data-bs-toggle="collapse" role="button" aria-expanded="false">
+        <i class="bi bi-person-plus me-2"></i> Programas Minvu
       </a>
       <ul class="collapse" id="programasSubmenu">
-        <li>
-          <a class="nav-link text-light ps-4" href="{% url 'Mun_List' %}">
-            <i class="fas fa-home"></i> Pequeñas Localidades
-          </a>
-        </li>
-        <li>
-          <a class="nav-link text-light ps-4" href="{% url 'Mun_List2' %}">
-            <i class="fas fa-building"></i> Barrios
-          </a>
-        </li>
-        <li>
-          <a class="nav-link text-light ps-4" href="{% url 'Mun_List3' %}">
-            <i class="fas fa-users"></i> Asentamientos Precarios
-          </a>
-        </li>
-      </ul>
-    </li>
+        
+            <a class="nav-link text-light" href="{% url 'Mun_List' %}">
+                <i class="fas fa-home"></i> Pequeñas Localidades
+            </a>
+        
+        
+            <a class="nav-link text-light" href="{% url 'Mun_List2' %}">
+                <i class="fas fa-building"></i> Barrios
+            </a>
+        
+        
+            <a class="nav-link text-light" href="{% url 'Mun_List3' %}">
+                <i class="fas fa-users"></i> Asentamientos Precarios
+            </a>
+        
+    </ul>
     
-    <!-- Dashboard -->
-    <li class="nav-item">
-      <a class="nav-link text-light collapsed d-flex justify-content-between align-items-center" href="#Submenu" data-bs-toggle="collapse" role="button" aria-expanded="false">
-        <span><i class="fas fa-tachometer-alt"></i> Dashboard</span>
-        <i class="bi bi-chevron-down"></i>
-      </a>
-      <ul class="collapse" id="Submenu">
-        <li>
-          <a class="nav-link text-light  ps-4" href="#">
-            <i class="fas fa-chart-bar"></i> Reporte
+    <!-- Agrega una sección de Reporte y Estadísticas -->
+    <ul class="collapse" id="programasSubmenu"></ul>
+           <a class="nav-link text-light" href="#">
+            <i class="fas fa-tachometer-alt"></i> Dashboard 
           </a>
-        </li>
-        <li>
-          <a class="nav-link text-light  ps-4" href="#">
-            <i class="fas fa-chart-line"></i> Estadísticas
-          </a>
-        </li>
-      </ul>
-    </li>
+            <a class="nav-link text-light" href="#">
+                <i class="fas fa-chart-bar"></i> Reporte
+            </a>
+        
+        
+            <a class="nav-link text-light" href="#">
+                <i class="fas fa-chart-line"></i> Estadísticas
+            </a>
+        
+    </ul>
     
-    <!-- Localidades -->
-    <li class="nav-item">
-      <a class="nav-link text-light" href="#">
-        <i class="bi bi-geo-alt"></i> Localidades
-      </a>
-    </li>
-    
-    <!-- Reservados -->
-    <li class="nav-item">
-      <a class="nav-link text-light" href="#">
-        <i class="fas fa-book"></i> Reservados
-      </a>
-    </li>
-  </ul>
 </div>
   
   <!-- Contenido Principal -->
