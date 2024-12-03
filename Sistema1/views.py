@@ -8,6 +8,7 @@ from django.http import FileResponse, Http404
 import os
 from django.db.models import Q
 from .forms import CustomUserCreationForm
+from django.contrib.auth import update_session_auth_hash
 # Create your views here.
 
 
@@ -81,9 +82,9 @@ def update_username(request):
 @login_required
 def change_password(request):
     if request.method == 'POST':
-        old_password = request.POST['old_password']
-        new_password = request.POST['new_password']
-        confirm_password = request.POST['confirm_password']
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
 
         if not request.user.check_password(old_password):
             messages.error(request, 'La contraseña actual es incorrecta.')
@@ -92,9 +93,15 @@ def change_password(request):
         else:
             request.user.set_password(new_password)
             request.user.save()
-            update_session_auth_hash(request, request.user)  # Mantener sesión activa
+            update_session_auth_hash(request, request.user)  # Mantener sesión activa después del cambio de contraseña
             messages.success(request, 'Contraseña actualizada correctamente.')
-        return redirect('perfil')
+            return redirect('perfil')  # Cambia a la URL que corresponda
+
+        # Redirigir a la misma página si hay errores
+        return redirect('change_password')
+
+    # Manejo de solicitudes GET
+    return render(request, 'change_password.html')
 
 
 
